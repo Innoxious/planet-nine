@@ -1,0 +1,24 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb",
+    "prettier",
+    "prettier/@typescript-eslint"
+  ],
+  "plugins": ["@typescript-eslint", "react-hooks"],
+  "settings": {
+    // solves import problems with tsx,ts,jsx,js files
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    },
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {}
+}

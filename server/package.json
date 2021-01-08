@@ -2,10 +2,10 @@
   "name": "node-express-mongo-oauth",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=prod node app",
-    "dev": "cross-env NODE_ENV=dev nodemon app"
+    "start": "cross-env NODE_ENV=prod node server",
+    "dev": "cross-env NODE_ENV=dev nodemon server"
   },
   "author": "Ken",
   "license": "MIT",
