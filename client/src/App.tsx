@@ -1,40 +1,23 @@
-import React from "react";
+import React from 'react';
 
 // import logo from "./logo.svg";
-import "./App.css";
-import MissionTable from "./MissionTable";
+import './App.css';
+import MissionTable from './MissionTable';
 import { Missions } from './Missions';
+import Header from './Header';
 
-const App : React.FC = () => (
-  <>
-    {/* <div className="App">
-      <header className="App-header">
-        <img alt="logo" className="App-logo" src={logo} />
-        <p>
-          Edit
-          {' '}
-          <code>src/App.tsx</code>
-          {' '}
-          and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Learn React
-        </a>
-      </header>
-    </div> */}
-    <div className="container">
-      <h1 className="display-4">
-        Mission Properly
-      </h1>
-      <MissionTable missions={Missions} />
-    </div>
-  </>
-);
+const App: React.FC = () => {
+  const missions = React.useMemo(() => Missions, []);
+
+  return (
+    <>
+      <Header />
+      <div className="container">
+        <h1 className="display-4">Mission Properly</h1>
+        <MissionTable missions={missions} />
+      </div>
+    </>
+  );
+};
 
 export default App;
-

@@ -1,32 +1,31 @@
-/* eslint-disable @typescript-eslint/ban-types */
-import React from "react";
-import { Table } from "react-bootstrap";
-import { Column, useSortBy, useTable } from "react-table";
+import * as React from 'react';
+import { Table } from 'react-bootstrap';
+import { Column, useSortBy, useTable } from 'react-table';
 
-import { Mission } from "./Missions";
+import { Mission } from './Missions';
 
 type Props = {
   missions: Array<Mission>;
-}
+};
 
 const MissionTable: React.FC<Props> = (props: Props) => {
   const data: Array<Mission> = React.useMemo(() => props.missions, [props]);
 
   const columns: Array<Column<Mission>> = [
     {
-      Header: "#",
-      accessor: "number",
+      Header: '#',
+      accessor: 'number',
     },
     {
-      Header: "Description",
-      accessor: "description",
+      Header: 'Description',
+      accessor: 'description',
     },
     {
-      Header: "Tasks",
-      accessor: "tasks",
+      Header: 'Tasks',
+      accessor: 'tasks',
     },
     {
-      Header: "Attempts",
+      Header: 'Attempts',
       Cell: () => <input min="0" size={2} step="1" type="number" />,
     },
   ];
@@ -45,7 +44,7 @@ const MissionTable: React.FC<Props> = (props: Props) => {
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
             ))}
           </tr>
         ))}
@@ -58,7 +57,7 @@ const MissionTable: React.FC<Props> = (props: Props) => {
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => (
-                <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
               ))}
             </tr>
           );
