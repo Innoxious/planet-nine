@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Table } from 'react-bootstrap';
 import { Column, useSortBy, useTable } from 'react-table';
 
-import { Mission } from './Missions';
+import { Mission } from './MissionsConstants';
 
 type Props = {
   missions: Array<Mission>;
