@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Navigation from './Navigation';
+import NavBar from './NavBar';
 import Routes from './Routes';
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <Navigation />
+      <NavBar />
       <div className="container">
         <Routes />
       </div>

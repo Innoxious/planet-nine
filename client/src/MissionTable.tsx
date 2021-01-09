@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { Table } from 'react-bootstrap';
-import { Column, useSortBy, useTable } from 'react-table';
+import { CellProps, Column, useSortBy, useTable } from 'react-table';
 
 import { Mission } from './MissionsConstants';
 
-type Props = {
+interface Props {
   missions: Array<Mission>;
-};
+}
 
 const MissionTable: React.FC<Props> = (props: Props) => {
   const data: Array<Mission> = React.useMemo(() => props.missions, [props]);
@@ -26,7 +25,18 @@ const MissionTable: React.FC<Props> = (props: Props) => {
     },
     {
       Header: 'Attempts',
-      Cell: () => <input min="0" size={2} step="1" type="number" />,
+      Cell: ({ cell: { row } }: CellProps<Mission>) => {
+        const mission = row.original as Mission;
+        return (
+          <input
+            min="0"
+            size={2}
+            step="1"
+            value={mission.attempts}
+            type="number"
+          />
+        );
+      },
     },
   ];
 
@@ -39,7 +49,10 @@ const MissionTable: React.FC<Props> = (props: Props) => {
   } = useTable({ columns, data }, useSortBy);
 
   return (
-    <Table {...getTableProps()} size="sm" variant="dark" bordered hover striped>
+    <table
+      {...getTableProps()}
+      className="table table-sm table-bordered table-dark table-striped"
+    >
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
@@ -63,7 +76,7 @@ const MissionTable: React.FC<Props> = (props: Props) => {
           );
         })}
       </tbody>
-    </Table>
+    </table>
   );
 };
 
