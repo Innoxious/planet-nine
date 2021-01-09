@@ -3,6 +3,9 @@ const dotenv = require('dotenv');
 const connectDb = require('./mongo/db');
 const morgan = require('morgan');
 const path = require('path');
+const passport = require('passport');
+const session = require('express-session');
+require('./passport/passport')(passport);
 
 dotenv.config({ path: './../.env' });
 const PORT = process.env.PORT || 5000;
@@ -14,15 +17,19 @@ const app = express();
 if (ENV === 'dev') {
   app.use(morgan('dev'));
 }
-app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.get('/api/hello', (req, res) => {
-  res.send({ data: 'Hello From Express' });
-});
+app.use(express.static(path.join(__dirname, './../client/build')));
+app.use(
+  session({
+    secret: 'asdasdasd',
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
-// app.use('/', require('./routes/index'));
+app.use('/api/test', require('./apis/helloApi'));
+app.use('/api/auth', require('./apis/authApi'));
 
 app.listen(PORT, console.log(`Listening on ${PORT} for ${ENV} environment.`));

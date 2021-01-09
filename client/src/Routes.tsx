@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Header from './Header';
-import { Missions } from './MissionsConstants';
-import MissionTable from './MissionTable';
+import Header from './home/Header';
+import Login from './login/Login';
+import { Missions } from './missions/MissionsConstants';
+import MissionTable from './missions/MissionTable';
 
 const Routes: React.FC = () => {
   const missions = React.useMemo(() => Missions, []);
@@ -24,6 +25,8 @@ const Routes: React.FC = () => {
         path="/missions"
         render={() => <MissionTable missions={missions} />}
       />
+
+      <Route exact={true} path="/login" render={() => <Login />} />
     </>
   );
 };
