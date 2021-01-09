@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
   },
   dateCreatedUtc: {
     type: Date,
-    default: new Date().getUTCDate(),
+    default: Date.parse(new Date().toISOString()),
   },
 });
 

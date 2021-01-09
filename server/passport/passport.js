@@ -11,17 +11,31 @@ module.exports = (passport) => {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: '/api/auth/google/callback',
       },
-      async (accessToken, refreshToken, profile, done) => {
-        console.log(profile);
+      async (accessToken, refreshToken, profile, verifyCallback) => {
+        const newUser = {
+          googleId: profile.id,
+        };
+
+        try {
+          let user = await User.findOne({ googleId: newUser.googleId });
+          if (user) {
+            verifyCallback(null, user);
+          } else {
+            user = await User.create(newUser);
+            verifyCallback(null, user);
+          }
+        } catch (err) {
+          console.error(err);
+        }
       },
     ),
   );
 
-  passport.serializeUser((user, done) => {
-    done(null, user.id);
+  passport.serializeUser((user, verifyCallback) => {
+    verifyCallback(null, user.id);
   });
 
-  passport.deserializeUser((id, done) => {
-    User.findById(id, (err, user) => done(err, user));
+  passport.deserializeUser((id, verifyCallback) => {
+    User.findById(id, (err, user) => verifyCallback(err, user));
   });
 };

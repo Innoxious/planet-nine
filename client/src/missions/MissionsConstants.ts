@@ -15,7 +15,7 @@ export const Missions: Array<Mission> = [
     description:
       "Congratulations! You have been selected from a variety of applicants to take part in the most exciting, greatest and most dangerous adventure of mankind: the search for the unknown 9th planet. As soon as you arrive at the training ground for the final tests, you'll be sitting in your first training phase: Teambuilding.",
     quirks: [],
-    attempts: 1,
+    attempts: 2,
   },
   {
     number: 2,
@@ -45,8 +45,8 @@ export const Missions: Array<Mission> = [
     number: 5,
     tasks: 3,
     description:
-      'Celebrated too soon! One of you is sick and stuck in bed.After everyone has looked at his hand cards, your Commander asks everyone about his or her condition. But you may only answer with Good or Bad. Your Commander then decides who is ill. The sick crew member may not win a single trick.',
-    quirks: ['special'],
+      'Celebrated too soon! One of you is sick and stuck in bed. After everyone has looked at his hand cards, your Commander asks everyone about his or her condition. But you may only answer with Good or Bad. Your Commander then decides who is ill. The sick crew member may not win a single trick.',
+    quirks: ['special', 'comms'],
     attempts: 0,
   },
 ];

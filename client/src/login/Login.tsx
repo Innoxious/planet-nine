@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const Login = () => {
+const Login: React.FC = () => {
   const loginOnClick = React.useCallback(() => {
     location.href = '/api/auth/google';
   }, []);

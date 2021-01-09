@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const { verifyIsNotAuthenticated } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
@@ -13,4 +14,10 @@ router.get(
   },
 );
 
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
+
+router.get('/login', verifyIsNotAuthenticated);
 module.exports = router;
