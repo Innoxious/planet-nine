@@ -5,14 +5,16 @@ const User = require('../models/User');
 
 module.exports = (passport) => {
   passport.use(
-    new Strategy({
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: '/auth/google/callback',
-    }),
-    async (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
-    },
+    new Strategy(
+      {
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: '/api/auth/google/callback',
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        console.log(profile);
+      },
+    ),
   );
 
   passport.serializeUser((user, done) => {

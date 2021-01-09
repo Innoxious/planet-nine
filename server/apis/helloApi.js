@@ -1,6 +1,8 @@
 const express = require('express');
-const app = express();
+const router = express.Router();
 
-app.get('/test/hello', (req, res) => {
+router.get('/hello', (req, res) => {
   res.send({ data: 'Hello From Express' });
 });
+
+module.exports = router;

@@ -5,7 +5,7 @@ const Header: React.FC = () => {
 
   React.useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('api/hello');
+      const response = await fetch('api/test/hello');
       const body = await response.json();
 
       setResponse(body.data);

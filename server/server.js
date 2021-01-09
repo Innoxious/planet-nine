@@ -5,11 +5,11 @@ const morgan = require('morgan');
 const path = require('path');
 const passport = require('passport');
 const session = require('express-session');
-require('./passport/passport')(passport);
 
 dotenv.config({ path: './../.env' });
 const PORT = process.env.PORT || 5000;
 const ENV = process.env.NODE_ENV || 'dev';
+require('./passport/passport')(passport);
 
 connectDb();
 const app = express();

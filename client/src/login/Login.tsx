@@ -2,7 +2,7 @@ import * as React from 'react';
 
 const Login = () => {
   const loginOnClick = React.useCallback(() => {
-    fetch('/auth/google');
+    location.href = '/api/auth/google';
   }, []);
 
   return (
