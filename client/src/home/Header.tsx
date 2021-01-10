@@ -1,14 +1,13 @@
 import * as React from 'react';
+import fetchDataAsync from '../apis/Data';
 
 const Header: React.FC = () => {
   const [response, setResponse] = React.useState('');
 
   React.useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('api/test/hello');
-      const body = await response.json();
-
-      setResponse(body.data);
+      const response = await fetchDataAsync();
+      setResponse(response);
     };
 
     fetchData();

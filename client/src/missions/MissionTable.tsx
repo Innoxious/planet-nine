@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CellProps, Column, useSortBy, useTable } from 'react-table';
+import { CellProps, Column, useTable } from 'react-table';
 
 import { Mission } from './MissionsConstants';
 
@@ -46,7 +46,7 @@ const MissionTable: React.FC<Props> = (props: Props) => {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({ columns, data }, useSortBy);
+  } = useTable({ columns, data });
 
   return (
     <table

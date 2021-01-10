@@ -8,10 +8,10 @@ module.exports = {
   },
   verifyIsNotAuthenticated: (req, res, callback) => {
     if (req.isAuthenticated()) {
-      console.log('I think the caller is authenticated');
+      console.log('Caller is authenticated');
       return res.redirect('/missions');
     } else {
-      console.log('I think the caller is NOT authenticated');
+      console.log('Caller is NOT authenticated');
       return callback();
     }
   },

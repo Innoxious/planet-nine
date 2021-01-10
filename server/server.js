@@ -5,10 +5,6 @@ const morgan = require('morgan');
 const path = require('path');
 const passport = require('passport');
 const session = require('express-session');
-const {
-  verifyIsAuthenticated,
-  verifyIsNotAuthenticated,
-} = require('./middleware/authMiddleware');
 
 dotenv.config({ path: './../.env' });
 const PORT = process.env.PORT || 5000;
@@ -37,15 +33,16 @@ app.use(passport.session());
 app.use('/api/test', require('./apis/helloApi'));
 app.use('/api/auth', require('./apis/authApi'));
 
-// app.get('/*', (req, res) => {
-//   res.sendFile(
-//     path.join(__dirname, './../client/build/index.html'),
-//     function (err) {
-//       if (err) {
-//         res.status(500).send(err);
-//       }
-//     },
-//   );
-// });
+app.get('*', (req, res) => {
+  console.log('Catch all');
+  res.sendFile(
+    path.join(__dirname, './../client/build/index.html'),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    },
+  );
+});
 
 app.listen(PORT, console.log(`Listening on ${PORT} for ${ENV} environment.`));

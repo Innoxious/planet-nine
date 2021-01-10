@@ -1,6 +1,5 @@
 const express = require('express');
 const passport = require('passport');
-const { verifyIsNotAuthenticated } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
@@ -19,5 +18,8 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
-router.get('/login', verifyIsNotAuthenticated);
+router.get('/check', (req, res) => {
+  console.log(`Check is authed: ${req.isAuthenticated()}`);
+  res.send(req.isAuthenticated());
+});
 module.exports = router;
