@@ -6,11 +6,7 @@ import { Missions } from './missions/MissionsConstants';
 import MissionTable from './missions/MissionTable';
 import ProtectedRoute from './auth/ProtectedRoute';
 
-interface Props {
-  isAuthenticated: boolean;
-}
-
-const Routes: React.FC<Props> = (props: Props) => {
+const Routes: React.FC = () => {
   const missions = React.useMemo(() => Missions, []);
 
   return (
@@ -33,7 +29,6 @@ const Routes: React.FC<Props> = (props: Props) => {
       <ProtectedRoute
         exact={true}
         path="/protected"
-        isAuthenticated={props.isAuthenticated}
         render={() => <h1>Protected</h1>}
       />
     </>
