@@ -11,26 +11,22 @@ const Routes: React.FC = () => {
 
   return (
     <>
-      <Route
-        exact={true}
-        path="/"
-        render={() => (
-          <>
-            <Header />
-          </>
-        )}
-      />
-      <Route
-        exact={true}
-        path="/missions"
-        render={() => <MissionTable missions={missions} />}
-      />
-      <Route exact={true} path="/login" render={() => <Login />} />
+      <Route exact={true} path="/">
+        <Header />
+      </Route>
+      <Route exact={true} path="/missions">
+        <MissionTable missions={missions} />
+      </Route>
+      <Route exact={true} path="/login">
+        <Login />
+      </Route>
       <ProtectedRoute
         exact={true}
         path="/protected"
-        render={() => <h1>Protected</h1>}
-      />
+        // render={() => <h1>Protected</h1>}
+      >
+        <h1>Protected</h1>
+      </ProtectedRoute>
     </>
   );
 };

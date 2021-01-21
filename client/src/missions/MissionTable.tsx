@@ -34,6 +34,9 @@ const MissionTable: React.FC<Props> = (props: Props) => {
             step="1"
             value={mission.attempts}
             type="number"
+            onChange={() => {
+              return null;
+            }}
           />
         );
       },
