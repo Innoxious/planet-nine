@@ -4,7 +4,7 @@ import Header from './home/Header';
 import Login from './auth/Login';
 import { Missions } from './missions/MissionsConstants';
 import MissionTable from './missions/MissionTable';
-import ProtectedRoute from './auth/ProtectedRoute';
+import { ProtectedRoute, AuthState } from './auth/ProtectedRoute';
 
 const Routes: React.FC = () => {
   const missions = React.useMemo(() => Missions, []);
@@ -17,13 +17,19 @@ const Routes: React.FC = () => {
       <Route exact={true} path="/missions">
         <MissionTable missions={missions} />
       </Route>
-      <Route exact={true} path="/login">
+      <ProtectedRoute
+        exact={true}
+        path="/login"
+        requiredAuthState={AuthState.IsNotAuthenticated}
+        failureRedirectSlug="/"
+      >
         <Login />
-      </Route>
+      </ProtectedRoute>
       <ProtectedRoute
         exact={true}
         path="/protected"
-        // render={() => <h1>Protected</h1>}
+        requiredAuthState={AuthState.IsAuthenticated}
+        failureRedirectSlug="/login"
       >
         <h1>Protected</h1>
       </ProtectedRoute>

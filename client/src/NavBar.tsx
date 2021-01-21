@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import checkIfAuthenticatedAsync from './apis/Auth';
+import { checkIfAuthenticatedAsync } from './apis/Auth';
 
 class NavBar extends React.Component {
   state = { isAuthenticated: false };
