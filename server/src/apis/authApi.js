@@ -19,7 +19,7 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/check', (req, res) => {
-  console.log(`Check is authed: ${req.isAuthenticated()}`);
   res.send(req.isAuthenticated());
 });
+
 module.exports = router;

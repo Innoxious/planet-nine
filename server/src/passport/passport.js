@@ -1,14 +1,17 @@
-/* eslint-disable no-unused-vars */
 const Strategy = require('passport-google-oauth20').Strategy;
-const mongoose = require('mongoose');
-const User = require('../models/User');
+const User = require('../schemas/User');
+
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
+if (!(GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET)) {
+  console.error('.env missing variables');
+}
 
 module.exports = (passport) => {
   passport.use(
     new Strategy(
       {
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        clientID: GOOGLE_CLIENT_ID,
+        clientSecret: GOOGLE_CLIENT_SECRET,
         callbackURL: '/api/auth/google/callback',
       },
       async (accessToken, refreshToken, profile, verifyCallback) => {

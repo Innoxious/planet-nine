@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const getUtcDate = require('../helpers/dateHelper');
 
 const UserSchema = new mongoose.Schema({
   googleId: {
@@ -7,7 +8,7 @@ const UserSchema = new mongoose.Schema({
   },
   dateCreatedUtc: {
     type: Date,
-    default: Date.parse(new Date().toISOString()),
+    default: getUtcDate(),
   },
 });
 
