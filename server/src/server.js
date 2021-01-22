@@ -1,12 +1,12 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const connectDb = require('./src/mongo/db');
+const connectDb = require('./mongo/db');
 const morgan = require('morgan');
 const path = require('path');
 const passport = require('passport');
 const mongoose = require('mongoose');
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+const expressSession = require('express-session');
+const MongoStore = require('connect-mongo')(expressSession);
 
 dotenv.config({ path: './../.env' });
 const { PORT, ENV, SESSION_SECRET } = process.env;
@@ -14,7 +14,7 @@ if (!(PORT && ENV && SESSION_SECRET)) {
   console.error('.env missing variables');
 }
 
-require('./src/passport/passport')(passport);
+require('./passport/passport')(passport);
 
 connectDb();
 const app = express();
@@ -26,7 +26,7 @@ if (ENV === 'DEVELOPMENT') {
 app.use(express.static(path.join(__dirname, './../client/build')));
 
 app.use(
-  session({
+  expressSession({
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
@@ -36,8 +36,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/api/test', require('./src/apis/helloApi'));
-app.use('/api/auth', require('./src/apis/authApi'));
+app.use('/api/test', require('./apis/helloApi'));
+app.use('/api/auth', require('./apis/authApi'));
 
 app.get('/*', (req, res) => {
   console.log('Catch all');

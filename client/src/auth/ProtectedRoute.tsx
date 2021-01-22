@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import {
-  checkIfAuthenticatedAsync,
-  checkIfNotAuthenticatedAsync,
+  verifyIsAuthenticatedAsync,
+  verifyIsNotAuthenticatedAsync,
 } from '../apis/Auth';
 
 export enum AuthState {
@@ -24,11 +24,11 @@ export class ProtectedRoute extends React.Component<Props> {
     let isAuthorized = false;
     switch (this.props.requiredAuthState) {
       case AuthState.IsAuthenticated:
-        isAuthorized = await checkIfAuthenticatedAsync();
+        isAuthorized = await verifyIsAuthenticatedAsync();
         break;
 
       case AuthState.IsNotAuthenticated:
-        isAuthorized = await checkIfNotAuthenticatedAsync();
+        isAuthorized = await verifyIsNotAuthenticatedAsync();
         break;
 
       default:

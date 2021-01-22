@@ -1,23 +1,12 @@
 const mongoose = require('mongoose');
-const getUtcDate = require('../helpers/dateHelper');
 
 const TeamSchema = new mongoose.Schema({
-  names: {
-    type: [String],
-    required: true,
+  name: {
+    type: String,
+    trim: true,
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-  },
-  dateCreatedUtc: {
-    type: Date,
-    default: getUtcDate(),
-  },
-  lastUpdatedUtc: {
-    type: Date,
-    default: getUtcDate(),
-  },
+  players: [String],
+  missions: [{ number: Number, attempts: Number }],
 });
 
 module.exports = mongoose.model('Team', TeamSchema);

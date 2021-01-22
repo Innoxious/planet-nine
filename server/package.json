@@ -2,7 +2,7 @@
   "name": "node-express-mongo-oauth",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "./src/server.js",
   "scripts": {
     "start": "cross-env NODE_ENV=prod node server",
     "dev": "cross-env NODE_ENV=dev nodemon server"
