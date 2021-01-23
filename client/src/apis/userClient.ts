@@ -6,8 +6,8 @@ export interface User {
 }
 
 export interface Team {
-  name: string;
-  players: Array<string>;
+  name?: string;
+  players?: Array<string>;
   missions?: { number: number; attempts: number };
 }
 

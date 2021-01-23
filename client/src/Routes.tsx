@@ -5,7 +5,7 @@ import Login from './auth/Login';
 import { Missions } from './missions/MissionsConstants';
 import MissionTable from './missions/MissionTable';
 import { ProtectedRoute, AuthState } from './auth/ProtectedRoute';
-import TeamList from './teams/TeamList';
+import Teams from './teams/Teams';
 
 const Routes: React.FC = () => {
   const missions = React.useMemo(() => Missions, []);
@@ -40,7 +40,7 @@ const Routes: React.FC = () => {
         requiredAuthState={AuthState.IsAuthenticated}
         failureRedirectSlug="/login"
       >
-        <TeamList />
+        <Teams />
       </ProtectedRoute>
     </>
   );

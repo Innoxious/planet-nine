@@ -12,7 +12,7 @@ class NavBar extends React.Component {
 
   render = (): React.ReactNode => {
     return (
-      <nav className="navbar navbar-expand-sm navbar-dark bg-gradient mb-5">
+      <nav className="navbar navbar-expand-sm navbar-dark bg-gradient">
         <div className="container-fluid">
           <Link to="/" className="navbar-brand">
             Planet Nine++
