@@ -27,8 +27,8 @@ module.exports = (passport) => {
             user = await User.create(newUser);
             verifyCallback(null, user);
           }
-        } catch (err) {
-          console.error(err);
+        } catch (error) {
+          console.error(error);
         }
       },
     ),
@@ -39,6 +39,6 @@ module.exports = (passport) => {
   });
 
   passport.deserializeUser((id, verifyCallback) => {
-    User.findById(id, (err, user) => verifyCallback(err, user));
+    User.findById(id, (error, user) => verifyCallback(error, user));
   });
 };

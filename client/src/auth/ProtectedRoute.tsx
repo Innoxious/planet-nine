@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import {
   verifyIsAuthenticatedAsync,
   verifyIsNotAuthenticatedAsync,
-} from '../apis/Auth';
+} from '../apis/authClient';
 
 export enum AuthState {
   IsAuthenticated,

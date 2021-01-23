@@ -38,10 +38,10 @@ app.use(passport.session());
 
 app.use('/api/test', require('./apis/helloApi'));
 app.use('/api/auth', require('./apis/authApi'));
-
+app.use('/api/user', require('./apis/userApi'));
 app.get('/*', (req, res) => {
   console.log('Catch all');
-  res.sendFile(path.join(__dirname, './../client/build/index.html'));
+  res.sendFile(path.join(__dirname, '../../client/build/index.html'));
 });
 
 app.listen(PORT, console.log(`Listening on ${PORT} for ${ENV} environment.`));

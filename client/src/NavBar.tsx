@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { verifyIsAuthenticatedAsync } from './apis/Auth';
+import { verifyIsAuthenticatedAsync } from './apis/authClient';
 
 class NavBar extends React.Component {
   state = { isAuthenticated: false };
@@ -23,7 +23,7 @@ class NavBar extends React.Component {
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
           >
-            <i className="bi bi-chevron-double-down" />
+            <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
@@ -44,8 +44,8 @@ class NavBar extends React.Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/protected" className="nav-link">
-                  Protected
+                <Link to="/teams" className="nav-link">
+                  Teams
                 </Link>
               </li>
             </ul>
