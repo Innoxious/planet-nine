@@ -23,7 +23,7 @@ if (ENV === 'DEVELOPMENT') {
   app.use(morgan('dev'));
 }
 
-app.use(express.static(path.join(__dirname, './../client/build')));
+app.use(express.static(path.join(__dirname, './../../client/build')));
 
 app.use(
   expressSession({
@@ -41,7 +41,7 @@ app.use('/api/auth', require('./apis/authApi'));
 app.use('/api/user', require('./apis/userApi'));
 app.get('/*', (req, res) => {
   console.log('Catch all');
-  res.sendFile(path.join(__dirname, '../../client/build/index.html'));
+  res.sendFile(path.join(__dirname, './../../client/build/index.html'));
 });
 
 app.listen(PORT, console.log(`Listening on ${PORT} for ${ENV} environment.`));

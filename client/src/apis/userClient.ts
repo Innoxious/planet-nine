@@ -14,8 +14,8 @@ export interface Team {
 export const getUserDocumentAsync = async (): Promise<User> => {
   try {
     const response = await fetch('api/user');
-    const teams = (await response.json()) as User;
-    return teams;
+    const user = (await response.json()) as User;
+    return user;
   } catch (error) {
     console.error(error);
     return {};

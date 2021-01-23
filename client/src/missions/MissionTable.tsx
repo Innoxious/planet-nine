@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { CellProps, Column, useTable } from 'react-table';
+import UserContext from '../contexts/UserContext';
 
 import { Mission } from './MissionsConstants';
 
@@ -9,7 +10,7 @@ interface Props {
 
 const MissionTable: React.FC<Props> = (props: Props) => {
   const data: Array<Mission> = React.useMemo(() => props.missions, [props]);
-
+  const { user } = React.useContext(UserContext);
   const columns: Array<Column<Mission>> = [
     {
       Header: '#',
@@ -52,34 +53,37 @@ const MissionTable: React.FC<Props> = (props: Props) => {
   } = useTable({ columns, data });
 
   return (
-    <table
-      {...getTableProps()}
-      className="table table-sm table-bordered table-dark table-striped"
-    >
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          prepareRow(row);
-
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => (
-                <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+    <>
+      <h1>{user.googleId}</h1>
+      <table
+        {...getTableProps()}
+        className="table table-sm table-bordered table-dark table-striped"
+      >
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
               ))}
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
+          ))}
+        </thead>
+
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => (
+                  <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </>
   );
 };
 

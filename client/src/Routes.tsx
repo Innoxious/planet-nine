@@ -12,14 +12,14 @@ const Routes: React.FC = () => {
 
   return (
     <>
-      <Route exact={true} path="/">
+      <Route exact path="/">
         <Header />
       </Route>
-      <Route exact={true} path="/missions">
+      <Route exact path="/missions">
         <MissionTable missions={missions} />
       </Route>
       <ProtectedRoute
-        exact={true}
+        exact
         path="/login"
         requiredAuthState={AuthState.IsNotAuthenticated}
         failureRedirectSlug="/"

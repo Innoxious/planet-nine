@@ -6,20 +6,18 @@ class TeamList extends React.Component {
   state = { user: {} as User };
   static contextType = UserContext;
   componentDidMount = async (): Promise<void> => {
-    const userDocument = await getUserDocumentAsync();
-    const { user, updateUser } = this.context;
-    updateUser(userDocument);
+    const user = await getUserDocumentAsync();
+    const { updateUser } = this.context;
+    updateUser(user);
     this.setState({ user });
   };
   render = (): React.ReactNode => {
     const { googleId, teams, dateCreatedUtc, lastUpdatedUtc } = this.state.user;
     return (
       <div>
-        <h1>GoogleId: {googleId}</h1>
-        <br />
-        <h2>DateCreated: {dateCreatedUtc}</h2>
-        <br />
-        <h2>lastUpdatedUtc{lastUpdatedUtc}</h2>
+        <p>GoogleId: {googleId}</p>
+        <p>DateCreated: {dateCreatedUtc}</p>
+        <p>lastUpdatedUtc: {lastUpdatedUtc}</p>
         <ul>{teams && teams.map((t) => <li>{t.name}</li>)}</ul>
       </div>
     );
