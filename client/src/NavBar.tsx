@@ -10,7 +10,9 @@ class NavBar extends React.Component {
     this.setState({ isAuthenticated });
   };
 
-  render = (): React.ReactNode => {
+  render = (): JSX.Element => {
+    const { isAuthenticated } = this.state;
+
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-gradient">
         <div className="container-fluid">
@@ -27,7 +29,7 @@ class NavBar extends React.Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              {this.state.isAuthenticated ? (
+              {isAuthenticated ? (
                 <li className="nav-item">
                   <a href="/api/auth/logout" className="nav-link">
                     Logout
@@ -43,11 +45,13 @@ class NavBar extends React.Component {
                   Missions
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/teams" className="nav-link">
-                  Teams
-                </Link>
-              </li>
+              {isAuthenticated && (
+                <li className="nav-item">
+                  <Link to="/teams" className="nav-link">
+                    Teams
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>

@@ -13,8 +13,8 @@ const TeamForm: React.FC<Props> = (props: Props) => {
     props?.crewmates?.length ? props.crewmates : ['', ''],
   );
   const [teamName, setTeamName] = React.useState(props.teamName || '');
+  const [errorMessage, setErrorMessage] = React.useState('');
   const { user, updateUser } = React.useContext(UserContext);
-
   const crewmateInputOnChange = (index: number, value: string): void => {
     setCrewmates(crewmates.map((c, i) => (i === index ? value : c)));
   };
@@ -45,19 +45,23 @@ const TeamForm: React.FC<Props> = (props: Props) => {
   const submitTeamForm = React.useCallback(
     async (event: React.FormEvent) => {
       event.preventDefault();
-      user?.teams && user.teams.push({ name: teamName, players: crewmates });
-      try {
-        const updatedUser = await postUserDocumentAsync(user);
-        updateUser(updatedUser);
-      } catch (error) {
-        console.error(error);
+      setErrorMessage('');
+      const newTeam = [{ name: teamName, players: crewmates }];
+      const response = await postUserDocumentAsync({
+        ...user,
+        teams: user.teams?.concat(newTeam),
+      });
+      if (response.success) {
+        updateUser(response.updatedUser || {});
+      } else {
+        setErrorMessage(response.errorMessage || '');
       }
     },
     [user, teamName, crewmates],
   );
 
   return (
-    <div className="col-sm-6">
+    <div className="mx-auto">
       <h2>add/edit</h2>
       <form onSubmit={submitTeamForm}>
         <div className="form-floating mb-3">
@@ -65,7 +69,7 @@ const TeamForm: React.FC<Props> = (props: Props) => {
             className="form-control"
             id="floatingTeamName"
             placeholder=""
-            maxLength={50}
+            maxLength={25}
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
           />
@@ -92,7 +96,14 @@ const TeamForm: React.FC<Props> = (props: Props) => {
           </button>
         </div>
         {crewmateInputs}
-        <button type="submit" className="btn btn-dark">
+        <p className="text-danger">{errorMessage}</p>
+        <button
+          type="submit"
+          disabled={
+            teamName === '' || crewmates.some((c) => c === null || c === '')
+          }
+          className="btn btn-dark"
+        >
           Submit
         </button>
       </form>

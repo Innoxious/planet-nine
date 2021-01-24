@@ -12,7 +12,7 @@ const CrewmateInput: React.FC<Props> = ({ number: index, name, onChange }) => (
       className="form-control"
       id={`floatingCrewmateInput${index}`}
       placeholder=""
-      maxLength={50}
+      maxLength={25}
       value={name}
       onChange={(e) => onChange(index, e.target.value)}
     />

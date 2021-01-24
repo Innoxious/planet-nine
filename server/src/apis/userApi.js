@@ -10,8 +10,6 @@ router.get('/', verifyIsAuthenticated, async (req, res) => {
     res.send({
       googleId: user.googleId,
       teams: user.teams,
-      dateCreatedUtc: user.dateCreatedUtc,
-      lastUpdatedUtc: user.lastUpdatedUtc,
     });
   } catch (error) {
     console.error(error);
@@ -20,19 +18,19 @@ router.get('/', verifyIsAuthenticated, async (req, res) => {
 
 router.post('/', verifyIsAuthenticated, async (req, res) => {
   try {
-    const json = req.body;
-    console.log(json);
+    const updatedDocument = req.body;
     const user = await User.findOneAndReplace(
       { googleId: req.user.googleId },
       {
-        ...json,
+        ...updatedDocument,
         lastUpdatedUtc: getUtcDate(),
       },
       { new: true },
     );
     res.send(user);
   } catch (error) {
-    // console.error(error);
+    res.status(400);
+    res.send(error.message);
   }
 });
 

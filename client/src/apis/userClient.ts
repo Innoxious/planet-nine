@@ -1,14 +1,18 @@
 export interface User {
   googleId?: string;
   teams?: Array<Team>;
-  dateCreatedUtc?: Date;
-  lastUpdatedUtc?: Date;
 }
 
 export interface Team {
   name?: string;
   players?: Array<string>;
-  missions?: { number: number; attempts: number };
+  missions?: Array<{ number: number; attempts: number }>;
+}
+
+interface PostUserDocumentResponse {
+  success: boolean;
+  updatedUser?: User;
+  errorMessage?: string;
 }
 
 export const getUserDocumentAsync = async (): Promise<User> => {
@@ -22,7 +26,9 @@ export const getUserDocumentAsync = async (): Promise<User> => {
   }
 };
 
-export const postUserDocumentAsync = async (user: User): Promise<User> => {
+export const postUserDocumentAsync = async (
+  user: User,
+): Promise<PostUserDocumentResponse> => {
   try {
     const response = await fetch('api/user', {
       method: 'POST',
@@ -31,10 +37,13 @@ export const postUserDocumentAsync = async (user: User): Promise<User> => {
         'Content-Type': 'application/json',
       },
     });
-    const updatedUser = (await response.json()) as User;
-    return updatedUser;
+    if (response.status === 200) {
+      const updatedUser = (await response.json()) as User;
+      return { success: true, updatedUser };
+    }
+    return { success: false, errorMessage: await response.text() };
   } catch (error) {
     console.error(error);
-    return {};
+    return { success: false };
   }
 };

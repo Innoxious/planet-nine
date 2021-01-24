@@ -7,7 +7,13 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  teams: [TeamSchema],
+  teams: {
+    type: [TeamSchema],
+    validate: {
+      validator: (teams) => teams.length <= 10,
+      message: 'Cannot store more than 10 teams.',
+    },
+  },
   dateCreatedUtc: {
     type: Date,
     default: getUtcDate(),

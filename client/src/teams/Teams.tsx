@@ -9,29 +9,21 @@ class Teams extends React.Component {
   static contextType = UserContext;
   componentDidMount = async (): Promise<void> => {
     const user = await getUserDocumentAsync();
-    const { updateUser } = this.context;
-    updateUser(user);
+    this.context.updateUser(user);
     this.setState({ user });
   };
   render = (): React.ReactNode => {
-    const { googleId, teams, dateCreatedUtc, lastUpdatedUtc } = this.state.user;
+    const { googleId } = this.state.user;
+    const { user } = this.context;
+
     return (
       <>
-        <div className="d-sm-flex justify-content-between">
-          <TeamList teams={teams} />
-          {(!teams || teams.length < 10) && <TeamForm />}
+        <div className="d-md-flex justify-content-center">
+          <TeamList />
+          {(!user.teams || user.teams.length < 10) && <TeamForm />}
         </div>
         <div className="mt-5">
-          <small>
-            DEBUG:
-            <br />
-            GoogleId: {googleId}
-            <br />
-            DateCreated: {dateCreatedUtc}
-            <br />
-            LastUpdatedUtc: {lastUpdatedUtc}
-            <br />
-          </small>
+          <small>GoogleId: {googleId}</small>
         </div>
       </>
     );
