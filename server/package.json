@@ -1,6 +1,6 @@
 {
-  "name": "node-express-mongo-oauth",
-  "version": "1.0.0",
+  "name": "planet-nine",
+  "version": "0.0.1",
   "description": "",
   "main": "./src/server.js",
   "scripts": {
