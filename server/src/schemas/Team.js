@@ -22,8 +22,8 @@ const TeamSchema = new mongoose.Schema({
     type: [{ number: Number, attempts: Number }],
     validate: {
       validator: (missions) =>
-        missions.every((m) => m.number > 0 && m.attempts >= 0),
-      message: 'Mission number must be natural, attempts must be whole',
+        missions.every((m) => m.number > 0 && m.attempts > 0),
+      message: 'Mission number and attempts must be a natural number.',
     },
   },
 });
