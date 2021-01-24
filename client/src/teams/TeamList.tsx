@@ -12,7 +12,7 @@ const TeamList: React.FC<Props> = ({ teams }) => {
       {teams && (
         <ul>
           {teams.map((t) => (
-            <li>{t.name}</li>
+            <li key={t.name}>{t.name}</li>
           ))}
         </ul>
       )}

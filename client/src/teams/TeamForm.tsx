@@ -1,59 +1,73 @@
 import * as React from 'react';
+import { postUserDocumentAsync } from '../apis/userClient';
+import UserContext from '../contexts/UserContext';
+import CrewmateInput from './CrewmateInput';
 
 interface Props {
-  crewmateNumber: number;
+  teamName?: string;
+  crewmates?: Array<string>;
 }
 
-const CrewmateInput: React.FC<Props> = ({ crewmateNumber }) => (
-  <div className="form-floating mb-3" key={`crewmate-div-${crewmateNumber}`}>
-    <input
-      className="form-control"
-      id={`floatingCrewmateInput${crewmateNumber}`}
-      placeholder=""
-      maxLength={50}
-      key={`crewmate-input-${crewmateNumber}`}
-    />
-    <label
-      className="text-dark"
-      htmlFor={`floatingCrewmateInput${crewmateNumber}`}
-      key={`crewmate-label-${crewmateNumber}`}
-    >
-      Crewmate {crewmateNumber}
-    </label>
-  </div>
-);
+const TeamForm: React.FC<Props> = (props: Props) => {
+  const [crewmates, setCrewmates] = React.useState(
+    props?.crewmates?.length ? props.crewmates : ['', ''],
+  );
+  const [teamName, setTeamName] = React.useState(props.teamName || '');
+  const { user, updateUser } = React.useContext(UserContext);
 
-const TeamForm: React.FC = () => {
-  const [crewmates, setCrewmates] = React.useState(2);
-
-  const crewmateInputs = new Array<React.ReactNode>();
-
-  for (let index = 1; index <= crewmates; index++) {
-    crewmateInputs.push(CrewmateInput({ crewmateNumber: index }));
+  const crewmateInputOnChange = (index: number, value: string): void => {
+    setCrewmates(crewmates.map((c, i) => (i === index ? value : c)));
+  };
+  const crewmateInputs = new Array<JSX.Element>();
+  for (let i = 0; i < crewmates.length; i++) {
+    crewmateInputs.push(
+      <CrewmateInput
+        number={i}
+        name={crewmates[i]}
+        onChange={crewmateInputOnChange}
+        key={`crewmate-input-${i}`}
+      />,
+    );
   }
 
   const addCrewmateOnClick = () => {
-    if (crewmates !== 5) {
-      setCrewmates(crewmates + 1);
+    if (crewmates.length !== 5) {
+      setCrewmates([...crewmates, '']);
     }
   };
 
   const removeCrewmateOnClick = () => {
-    if (crewmates !== 2) {
-      setCrewmates(crewmates - 1);
+    if (crewmates.length !== 2) {
+      setCrewmates(crewmates.slice(0, crewmates.length - 1));
     }
   };
+
+  const submitTeamForm = React.useCallback(
+    async (event: React.FormEvent) => {
+      event.preventDefault();
+      user?.teams && user.teams.push({ name: teamName, players: crewmates });
+      try {
+        const updatedUser = await postUserDocumentAsync(user);
+        updateUser(updatedUser);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [user, teamName, crewmates],
+  );
 
   return (
     <div className="col-sm-6">
       <h2>add/edit</h2>
-      <form>
+      <form onSubmit={submitTeamForm}>
         <div className="form-floating mb-3">
           <input
             className="form-control"
             id="floatingTeamName"
             placeholder=""
             maxLength={50}
+            value={teamName}
+            onChange={(e) => setTeamName(e.target.value)}
           />
           <label className="text-dark" htmlFor="floatingTeamName">
             Team name
@@ -64,7 +78,7 @@ const TeamForm: React.FC = () => {
             type="button"
             onClick={removeCrewmateOnClick}
             className="btn btn-dark"
-            disabled={crewmates === 2}
+            disabled={crewmates.length === 2}
           >
             --
           </button>
@@ -72,7 +86,7 @@ const TeamForm: React.FC = () => {
             type="button"
             onClick={addCrewmateOnClick}
             className="btn btn-dark"
-            disabled={crewmates === 5}
+            disabled={crewmates.length === 5}
           >
             ++
           </button>
@@ -85,4 +99,5 @@ const TeamForm: React.FC = () => {
     </div>
   );
 };
+
 export default TeamForm;

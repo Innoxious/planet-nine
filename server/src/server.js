@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const connectDb = require('./mongo/db');
 const morgan = require('morgan');
@@ -35,7 +36,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(bodyParser.json());
 app.use('/api/test', require('./apis/helloApi'));
 app.use('/api/auth', require('./apis/authApi'));
 app.use('/api/user', require('./apis/userApi'));
